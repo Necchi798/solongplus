@@ -42,9 +42,9 @@ void	move_left(t_game *game)
 {
 	if (game->player.tile->left->type == COLLECTABLE)
 		game->collects--;
-	if (game->player.tile->left->type == EXIT && game->collects == 0)
+	else if (game->player.tile->left->type == EXIT && game->collects == 0)
 		game->status = 1;
-	if (game->player.tile->left->type == ENEMY)
+	else if (game->player.tile->left->type == ENEMY)
 	{
 		kill_player(game);
 		return ;

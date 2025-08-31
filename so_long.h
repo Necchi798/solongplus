@@ -15,9 +15,11 @@
 
 # include "ft_printf/ft_printf.h"
 # include "basics.h"
+#include <stdio.h>
 # include "./minilibx/mlx.h"
 
 # define IMG_SIZE 64
+# define CAMERA_SIZE 6
 
 typedef enum e_tiletype
 {

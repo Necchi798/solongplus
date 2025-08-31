@@ -14,30 +14,51 @@
 
 void	draw_text(t_game *game);
 
+#include <time.h> 
+double get_time() {
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    return (double)ts.tv_sec + (double)ts.tv_nsec / 1e9; // 1e9 = 1 miliardo
+}
+int frame_corrente = 0;
+const int TOTALE_FRAME = 4;
+const double DURATA_FRAME = 0.2; // Ogni frame dura 0.2 secondi
 
 static void	player_animation(t_player *player)
 {
-
-	if (player->framecount == 0)
-		player->current_img = player->idle_img_0;
-	else if (player->framecount == player->idle_frames)
-		player->current_img = player->idle_img_1;
-	else if (player->framecount == player->idle_frames * 2)
-		player->current_img = player->idle_img_2;
-	else if (player->framecount == player->idle_frames * 3)
-		player->current_img = player->idle_img_3;
-	else if (player->framecount == player->idle_frames * 4)
-		player->current_img = player->idle_img_4;
-	else if (player->framecount == player->idle_frames * 5)
-		player->current_img = player->idle_img_5;
-	else if (player->framecount == player->idle_frames * 6)
-		player->current_img = player->idle_img_6;
-	else if (player->framecount == player->idle_frames * 8)
-	{
-		player->current_img = player->idle_img_7;
-		player->framecount = 0;
-	}
-	player->framecount += 1;
+	static double timer_frame = 0.0;
+	static double then = 0;
+	if(then == 0)
+		then = get_time();
+	double now = get_time();
+	double dt = now - then;
+	timer_frame += dt;
+	if(timer_frame >= 0.05){
+		timer_frame -= 0.05;
+		player->current_img = player->frames[(frame_corrente + 1) % 8];
+		frame_corrente++;
+	}	
+	then = now;
+	// if (player->framecount == 0)
+	// 	player->current_img = player->idle_img_0;
+	// else if (player->framecount == player->idle_frames)
+	// 	player->current_img = player->idle_img_1;
+	// else if (player->framecount == player->idle_frames * 2)
+	// 	player->current_img = player->idle_img_2;
+	// else if (player->framecount == player->idle_frames * 3)
+	// 	player->current_img = player->idle_img_3;
+	// else if (player->framecount == player->idle_frames * 4)
+	// 	player->current_img = player->idle_img_4;
+	// else if (player->framecount == player->idle_frames * 5)
+	// 	player->current_img = player->idle_img_5;
+	// else if (player->framecount == player->idle_frames * 6)
+	// 	player->current_img = player->idle_img_6;
+	// else if (player->framecount == player->idle_frames * 8)
+	// {
+	// 	player->current_img = player->idle_img_7;
+	// 	player->framecount = 0;
+	// }
+	// player->framecount += 1;
 }
 
 static void	door_animation_closed(t_door *door_close_img)

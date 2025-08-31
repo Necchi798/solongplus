@@ -79,21 +79,30 @@ void	render(t_game game)
 	int		y;
 
 	mlx_clear_window(game.mlx, game.window);
-	
-	int camerax = game.player.tile->position.x/64 - 1;
-	int cameray = game.player.tile->position.y/64 - 1;
-	
-
+	int cameraSize = 6;
+	int camerax = game.player.tile->position.x/64 - cameraSize / 2;
+	int cameray = game.player.tile->position.y/64 - cameraSize / 2;
+	int maxCameraX = (( game.wndw_size.x / 64) - cameraSize);
+	int maxCameray = (( game.wndw_size.y / 64) -cameraSize);
+	int viewPortX = game.wndw_size.x / 2 - (64 * cameraSize/2);
+	if(camerax < 0)
+		camerax = 0;
+	else if(camerax > maxCameraX)
+		camerax= maxCameraX;
+	if(cameray < 0)
+		cameray = 0;
+	else if(cameray > maxCameray)
+		cameray = maxCameray;
 	y = cameray;
 	
-	while (game.tilemap[y] != NULL && y <= cameray + 2 )
+	while (game.tilemap[y] != NULL && y <= cameray + cameraSize -1 )
 	{
 		x = camerax;
-		while (game.tilemap[y][x].type != 0 && x <= camerax + 2)
+		while (game.tilemap[y][x].type != 0 && x <= camerax + cameraSize -1)
 		{
 			tile = game.tilemap[y][x];
 
-			tile.position.x = tile.position.x  = (x - camerax) * 64;
+			tile.position.x = tile.position.x  = (x - camerax) * 64 + viewPortX;
 			tile.position.y = tile.position.y = (y - cameray) * 64;
 
 			draw_image(tile, game, tile.position);
