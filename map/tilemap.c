@@ -43,6 +43,8 @@ t_tile	**alloc_tilemap(char **map)
 
 t_tiletype	define_tiletype(char definer)
 {
+	if (definer == 'I')
+		return (IND_WALL);
 	if (definer == '1')
 		return (WALL);
 	if (definer == 'C')
@@ -97,13 +99,14 @@ t_tile	**generate_tilemap(char **map, t_game *game)
 		while (map[y][x] != 0)
 		{
 			tilemap[y][x].type = define_tiletype(map[y][x]);
+			tilemap[y][x].visited = 0;
 			setup_tile(tilemap, x, y);
 			set_gamevars(&tilemap[y][x], game, map[y][x]);
 			x++;
 		}
 		y++;
 	}
-	game->wndw_size.x = x * IMG_SIZE;
-	game->wndw_size.y = y * IMG_SIZE;
+	game->wndw_size.x = 900;
+	game->wndw_size.y = 500;
 	return (tilemap);
 }

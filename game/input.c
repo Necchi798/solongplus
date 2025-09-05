@@ -17,6 +17,8 @@ void	kill_player(t_game *game);
 
 void	move_right(t_game *game)
 {
+	game->player.direction = RIGHT;
+
 	if (game->player.tile->right->type == COLLECTABLE)
 		game->collects--;
 	if (game->player.tile->right->type == EXIT && game->collects == 0)
@@ -40,6 +42,8 @@ void	move_right(t_game *game)
 
 void	move_left(t_game *game)
 {
+	game->player.direction = LEFT;
+
 	if (game->player.tile->left->type == COLLECTABLE)
 		game->collects--;
 	else if (game->player.tile->left->type == EXIT && game->collects == 0)
@@ -62,7 +66,8 @@ void	move_left(t_game *game)
 }
 
 void	move_up(t_game *game)
-{
+{	
+	game->player.direction = UP;
 	if (game->player.tile->up->type == COLLECTABLE)
 		game->collects--;
 	if (game->player.tile->up->type == EXIT && game->collects == 0)
@@ -72,7 +77,7 @@ void	move_up(t_game *game)
 		kill_player(game);
 		return ;
 	}
-	if ((game->player.tile->up->type != WALL)
+	if ((game->player.tile->up->type != WALL &&  game->player.tile->up->type != IND_WALL)
 		&& game->player.tile->up->type != EXIT)
 	{
 		game->moves++;
@@ -86,6 +91,7 @@ void	move_up(t_game *game)
 
 void	move_down(t_game *game)
 {
+	game->player.direction = DOWN;
 	if (game->player.tile->down->type == COLLECTABLE)
 		game->collects--;
 	if (game->player.tile->down->type == EXIT && game->collects == 0)
@@ -102,13 +108,36 @@ void	move_down(t_game *game)
 		game->player.tile->down->type = PLAYER;
 		game->player.tile->type = EMPTY;
 		game->player.tile = game->player.tile->down;
-		ft_printf("Mosse fatte --> %d \n", game->moves);
 		move_enemies(game);
 	}
 }
 
+void breakWall(t_game * game){
+	if (game->player.direction == UP && game->player.tile->up->type == WALL)
+	{
+		game->player.tile->up->type = EMPTY;
+	}
+	else if (game->player.direction == DOWN && game->player.tile->down->type == WALL)
+	{
+		game->player.tile->down->type = EMPTY;
+	}
+	else if (game->player.direction == LEFT && game->player.tile->left->type == WALL)
+	{
+		game->player.tile->left->type = EMPTY;
+	}
+	
+	else if (game->player.direction == RIGHT && game->player.tile->left->type == WALL)
+	{
+		game->player.tile->right->type = EMPTY;
+	}
+	
+	
+}
+
 int	input(int key, t_game *game)
-{
+{	
+	if(key == 32)
+		breakWall(game);
 	if (key == 100 && game->status == 0)
 		move_right(game);
 	else if (key == 97 && game->status == 0)

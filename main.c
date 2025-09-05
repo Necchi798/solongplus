@@ -24,11 +24,11 @@ void test(int key, void *param){
 
 int test2(int x,int y, t_game *game){
 	int offsetX =  (( game->wndw_size.x) - (CAMERA_SIZE * 64)) /2;
-	printf("cippalwwippa  %d  %d \n", (x - offsetX ) /64 , y /64);
+	printf("cippalwwippa  %d  %d \n", x  , y );
 	if(click == 1){
 		click = 0;
 		printf("%d %d",(x - offsetX ) /64, y /64);
-		game->tilemap[y /64][(x - offsetX ) /64].type = WALL;
+		// game->tilemap[y /64][(x - offsetX ) /64].type = WALL;
 	}
 	return 0;
 }

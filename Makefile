@@ -33,7 +33,7 @@ MLX = $(addprefix $(MLXDIR), $(MLX_A))
 MAP = read_map.c check_map.c map_check_utils.c tilemap.c enemy_gen.c
 SRC_MAP = $(addprefix map/, $(MAP))
 
-GAME = game_int.c end_program.c image.c update.c render.c door.c input.c enemy.c
+GAME = game_int.c end_program.c image.c update.c render.c door.c input.c enemy.c 
 SRC_GAME = $(addprefix game/, $(GAME))
 
 OBJ = $(SRC:.c=.o)
@@ -44,7 +44,7 @@ OBJ = $(SRC:.c=.o)
 $(NAME) : $(OBJ)
 	make -C $(LIBFT_DIR)
 	make -C $(FT_PRINTF_DIR)
-	$(CC)   $(OBJ) $(FT_PRINTF) $(LIBFT)  -Lmlx_Linux -lmlx_Linux -L ./minilibx -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz -lrt -o $(NAME)
+	$(CC)   $(OBJ) $(FT_PRINTF) $(LIBFT)  -Lmlx_Linux -lmlx_Linux -L ./minilibx -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz -lrt -g -o $(NAME)
 
 all: $(NAME)
 

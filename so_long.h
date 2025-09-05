@@ -20,9 +20,20 @@
 
 # define IMG_SIZE 64
 # define CAMERA_SIZE 6
+# define MAP_HEIGHT 30
+# define MAP_WIDTH 30
+typedef enum e_direction{
+	
+	UP = 1,
+	RIGHT = 2,
+	DOWN = 3,
+	LEFT = 4,
+
+} t_direction;
 
 typedef enum e_tiletype
 {
+	IND_WALL = 'I',
 	EMPTY = '0',
 	WALL = '1',
 	COLLECTABLE = 'C',
@@ -30,6 +41,7 @@ typedef enum e_tiletype
 	EXIT = 'E',
 	ENEMY = 'M',
 	POWER_UP = 'U',
+
 }	t_tiletype;
 
 enum {
@@ -41,6 +53,7 @@ typedef struct s_tile
 {
 	t_tiletype		type;
 	t_vector		position;
+	int 	visited;
 	struct s_tile	*up;
 	struct s_tile	*down;
 	struct s_tile	*left;
@@ -50,6 +63,7 @@ typedef struct s_tile
 typedef struct s_player
 {
 
+	t_direction direction;
 	double then;
 	t_tile	*tile;
 	void	*current_img;
@@ -64,6 +78,7 @@ typedef struct s_player
 	void	*idle_img_5;
 	void	*idle_img_6;
 	void	*idle_img_7;
+
 }	t_player;
 
 typedef struct s_door
@@ -136,8 +151,9 @@ typedef struct s_game
 t_bool	start(t_game *game, int argc, char **argv);
 int		end_program(t_game *game);
 int		update(t_game *game);
-void	render(t_game game);
+void	render(t_game *game);
 void	open_images(t_game *game);
 int		input(int key, t_game *game);
+t_tile	**map_init( t_game *game);
 
 #endif

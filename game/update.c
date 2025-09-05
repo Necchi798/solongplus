@@ -130,9 +130,15 @@ int	update(t_game *game)
 		door_animation_closed(&game->door_close_img);
 	else
 		door_animation_opened(&game->door_open_img);
-	player_animation(&game->player);
+	//player_animation(&game->player);
 	enemy_animation(&game->enemy_imgs);
-	render(*game);
+	render(game);
 	draw_text(game);
+	char *str = ft_itoa(game->collects);
+	mlx_string_put(game->mlx, game->window,
+		0,
+		IMG_SIZE - IMG_SIZE / 1.5,
+		-1, str);
+	free(str);
 	return (1);
 }

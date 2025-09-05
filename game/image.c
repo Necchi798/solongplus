@@ -29,7 +29,7 @@ static void	open_player_imgs(t_game *game)
 {
 
 	game->player.idle_img_0 = mlx_xpm_file_to_image(game->mlx,
-			"asset/Player/0.xpm", &game->img_size.x, &game->img_size.y);
+			"asset/Player/player.xpm", &game->img_size.x, &game->img_size.y);
 	game->player.idle_img_1 = mlx_xpm_file_to_image(game->mlx,
 			"asset/Player/1.xpm", &game->img_size.x, &game->img_size.y);
 	game->player.idle_img_2 = mlx_xpm_file_to_image(game->mlx,
