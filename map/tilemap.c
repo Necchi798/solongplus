@@ -53,7 +53,7 @@ t_tiletype	define_tiletype(char definer)
 		return (PLAYER);
 	if (definer == 'E')
 		return (EXIT);
-	if (definer == 'H' || definer == 'V')
+	if (definer == 'M' || definer == 'V')
 		return (ENEMY);
 	if(definer == 'U')
 		return  (POWER_UP);
@@ -75,12 +75,14 @@ void	setup_tile(t_tile **tilemap, int x, int y)
 
 void	set_gamevars(t_tile *tile, t_game *game, char c)
 {
+	
 	if (tile->type == PLAYER)
 		game->player.tile = tile;
 	else if (tile->type == COLLECTABLE)
 		game->collects++;
-	else if (tile->type == ENEMY)
+	else if (tile->type == ENEMY){
 		add_enemy (game, c, tile);
+	}
 }
 
 t_tile	**generate_tilemap(char **map, t_game *game)

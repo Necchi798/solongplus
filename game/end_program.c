@@ -52,6 +52,6 @@ int	end_program(t_game *game)
 
 void	kill_player(t_game *game)
 {
-	game->player.tile = NULL;
+	//game->player.tile = NULL;
 	game->status = -1;
 }

@@ -38,8 +38,8 @@ int	main(int argc, char **argv)
 	t_game	game;
 	if (!start(&game, argc, argv))
 		return (0);
-	mlx_hook(game.window, 6, (1L<<6), test2,  (void *)&game);
-	mlx_mouse_hook(game.window, test, (void *)&game);
+	//mlx_hook(game.window, 6, (1L<<6), test2,  (void *)&game);
+	//mlx_mouse_hook(game.window, test, (void *)&game);
 	mlx_loop_hook(game.mlx, update, (void *)&game);
 	mlx_key_hook(game.window, input, &game);
 	mlx_loop(game.mlx);

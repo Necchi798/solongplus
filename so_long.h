@@ -115,6 +115,7 @@ typedef struct s_enemy_imgs
 {
 	int		basic_framecount;
 	int		basic_idle_frame;
+	void	*frames[3];
 	void	*basic_current;
 	void	*basic_0;
 	void	*basic_1;

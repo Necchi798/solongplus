@@ -29,14 +29,14 @@ void	move_right(t_game *game)
 		return ;
 	}
 	if (game->player.tile->right->type != WALL
-		&& game->player.tile->right->type != EXIT)
+		&& game->player.tile->right->type != EXIT && game->player.tile->right->type != IND_WALL)
 	{
 		game->moves++;
 		game->player.tile->right->type = PLAYER;
 		game->player.tile->type = EMPTY;
 		game->player.tile = game->player.tile->right;
-		ft_printf("Mosse fatte --> %d \n", game->moves);
-		move_enemies(game);
+		
+		// move_enemies(game);
 	}
 }
 
@@ -54,14 +54,14 @@ void	move_left(t_game *game)
 		return ;
 	}
 	if ((game->player.tile->left->type != WALL)
-		&& game->player.tile->left->type != EXIT)
+		&& game->player.tile->left->type != EXIT &&  game->player.tile->left->type != IND_WALL)
 	{
 		game->moves++;
 		game->player.tile->left->type = PLAYER;
 		game->player.tile->type = EMPTY;
 		game->player.tile = game->player.tile->left;
-		ft_printf("Mosse fatte --> %d \n", game->moves);
-		move_enemies(game);
+		
+		// move_enemies(game);
 	}
 }
 
@@ -84,8 +84,8 @@ void	move_up(t_game *game)
 		game->player.tile->up->type = PLAYER;
 		game->player.tile->type = EMPTY;
 		game->player.tile = game->player.tile->up;
-		ft_printf("Mosse fatte --> %d \n", game->moves);
-		move_enemies(game);
+		
+		// move_enemies(game);
 	}
 }
 
@@ -102,18 +102,19 @@ void	move_down(t_game *game)
 		return ;
 	}
 	if (game->player.tile->down->type != WALL
-		&& game->player.tile->down->type != EXIT)
+		&& game->player.tile->down->type != EXIT &&  game->player.tile->down->type != IND_WALL)
 	{
 		game->moves++;
 		game->player.tile->down->type = PLAYER;
 		game->player.tile->type = EMPTY;
 		game->player.tile = game->player.tile->down;
-		move_enemies(game);
+		// move_enemies(game);
 	}
 }
 
 void breakWall(t_game * game){
-	if (game->player.direction == UP && game->player.tile->up->type == WALL)
+	
+	if (game->player.direction == UP && game->player.tile->up->type == WALL )
 	{
 		game->player.tile->up->type = EMPTY;
 	}
@@ -125,8 +126,7 @@ void breakWall(t_game * game){
 	{
 		game->player.tile->left->type = EMPTY;
 	}
-	
-	else if (game->player.direction == RIGHT && game->player.tile->left->type == WALL)
+	else if (game->player.direction == RIGHT && game->player.tile->right->type == WALL)
 	{
 		game->player.tile->right->type = EMPTY;
 	}

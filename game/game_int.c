@@ -48,7 +48,7 @@ int  find_random_empty_tile(int* out_x, int* out_y,char **map) {
 }
 
 
-void place_game_elements(int num_coins,char **map) {
+void place_game_elements(int num_coins,int num_e,char **map) {
     int x, y;
 
     // 1. Posiziona il Giocatore ('P')
@@ -59,7 +59,6 @@ void place_game_elements(int num_coins,char **map) {
         return;
     }
 
-    // 2. Posiziona l'Uscita ('E')
     if (find_random_empty_tile(&x, &y,map)) {
         map[x][y] ='E';
     } else {
@@ -67,13 +66,19 @@ void place_game_elements(int num_coins,char **map) {
         return;
     }
 
-    // 3. Posiziona le Monete ('C')
     for (int i = 0; i < num_coins; i++) {
         if (find_random_empty_tile(&x, &y,map)) {
             map[x][y] = 'C';
         } else {
             printf("ATTENZIONE: Spazio esaurito, posizionate solo %d monete.\n", i);
-            break; // Esci dal ciclo se non c'è più spazio
+            break;
+        }
+    }
+    for (int i = 0; i < num_e; i++) {
+        if (find_random_empty_tile(&x, &y,map)) {
+            map[x][y] = 'V';
+        } else {
+            break;
         }
     }
 }
@@ -121,9 +126,14 @@ char** genMap() {
                 map[x][y] = IND_WALL;
         }
     }
-	place_game_elements(9,map);
+	place_game_elements(9,15,map);
     printf("Mappa generata!\n");
-
+     for (int y = 0; y < MAP_HEIGHT; ++y) {
+        for (int x = 0; x < MAP_WIDTH; ++x){
+            printf("%c",map[y][x]);
+        }
+        printf("\n");
+     }
     return map;
 }
 t_tile	**map_init( t_game *game)

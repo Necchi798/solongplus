@@ -76,7 +76,7 @@ void renderMenu (t_game game){
 void renderMinimap(t_game game){
 	int scale = 5;
 	int tile_color;
-	void *minimap = mlx_new_image(game.mlx,180,180 );
+	// void *minimap = mlx_new_image(game.mlx,180,180 );
 	for (int map_y = 0; map_y < MAP_HEIGHT; ++map_y) {
 		for (int map_x = 0; map_x < MAP_WIDTH; ++map_x) {
 			  switch (game.tilemap[map_y][map_x].type) {

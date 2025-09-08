@@ -16,13 +16,14 @@ void	open_door_imgs(t_game *game);
 
 static void	open_enemy_imgs(t_game *game)
 {
-	game->enemy_imgs.basic_0 = mlx_xpm_file_to_image(game->mlx,
+
+	game->enemy_imgs.frames[0] = mlx_xpm_file_to_image(game->mlx,
 			"asset/Enemy/0.xpm", &game->img_size.x, &game->img_size.y);
-	game->enemy_imgs.basic_1 = mlx_xpm_file_to_image(game->mlx,
+	game->enemy_imgs.frames[1] = mlx_xpm_file_to_image(game->mlx,
 			"asset/Enemy/1.xpm", &game->img_size.x, &game->img_size.y);
-	game->enemy_imgs.basic_2 = mlx_xpm_file_to_image(game->mlx,
-			"asset/Enemy/2.xpm", &game->img_size.x, &game->img_size.y);
-	game->enemy_imgs.basic_current = game->enemy_imgs.basic_0;
+	game->enemy_imgs.frames[2] = mlx_xpm_file_to_image(game->mlx,
+			"asset/Enemy/1.xpm", &game->img_size.x, &game->img_size.y);
+	game->enemy_imgs.basic_current = game->enemy_imgs.frames[0];
 }
 
 static void	open_player_imgs(t_game *game)

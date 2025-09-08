@@ -13,19 +13,19 @@
 #include "../so_long.h"
 
 void	draw_text(t_game *game);
-
+void	move_enemies(t_game *game);
 #include <time.h> 
 double get_time() {
     struct timespec ts;
     clock_gettime(CLOCK_MONOTONIC, &ts);
     return (double)ts.tv_sec + (double)ts.tv_nsec / 1e9; // 1e9 = 1 miliardo
 }
-int frame_corrente = 0;
 const int TOTALE_FRAME = 4;
 const double DURATA_FRAME = 0.2; // Ogni frame dura 0.2 secondi
 
 static void	player_animation(t_player *player)
 {
+	static int frame_corrente=0;
 	static double timer_frame = 0.0;
 	static double then = 0;
 	if(then == 0)
@@ -111,21 +111,47 @@ static void	door_animation_opened(t_door *door_open_img)
 
 static void	enemy_animation(t_enemy_img *img)
 {
-	if (img->basic_framecount == img->basic_idle_frame)
-		img->basic_current = img->basic_0;
-	else if (img->basic_framecount == img->basic_idle_frame * 2)
-		img->basic_current = img->basic_1;
-	else if (img->basic_framecount == img->basic_idle_frame * 3)
-	{
-		img->basic_current = img->basic_2;
-		img->basic_framecount = 0;
-	}
-	img->basic_framecount += 1;
+	static int frame_corrente=0;
+	static double timer_frame = 0.0;
+	static double then = 0;
+	if(then == 0)
+		then = get_time();
+	double now = get_time();
+	double dt = now - then;
+	timer_frame += dt;
+	if(timer_frame >= 0.2){
+		timer_frame -= 0.2;
+		
+	}	
+	then = now;
+	// if (img->basic_framecount == img->basic_idle_frame)
+	// 	img->basic_current = img->basic_0;
+	// else if (img->basic_framecount == img->basic_idle_frame * 2)
+	// 	img->basic_current = img->basic_1;
+	// else if (img->basic_framecount == img->basic_idle_frame * 3)
+	// {
+	// 	img->basic_current = img->basic_2;
+	// 	img->basic_framecount = 0;
+	// }
+	// img->basic_framecount += 1;
 }
 
 int	update(t_game *game)
 {
 
+	static int frame_corrente=0;
+	static double timer_frame = 0.0;
+	static double then = 0;
+	if(then == 0)
+		then = get_time();
+	double now = get_time();
+	double dt = now - then;
+	timer_frame += dt;
+	if(timer_frame >= 0.6){
+		timer_frame -= 0.6;
+		move_enemies(game);
+	}	
+	then = now;
 	if (game->collects > 0)
 		door_animation_closed(&game->door_close_img);
 	else
