@@ -25,40 +25,29 @@ const double DURATA_FRAME = 0.2; // Ogni frame dura 0.2 secondi
 
 static void	player_animation(t_player *player)
 {
-	static int frame_corrente=0;
-	static double timer_frame = 0.0;
-	static double then = 0;
-	if(then == 0)
-		then = get_time();
-	double now = get_time();
-	double dt = now - then;
-	timer_frame += dt;
-	if(timer_frame >= 0.05){
-		timer_frame -= 0.05;
-		player->current_img = player->frames[(frame_corrente + 1) % 8];
-		frame_corrente++;
-	}	
-	then = now;
-	// if (player->framecount == 0)
-	// 	player->current_img = player->idle_img_0;
-	// else if (player->framecount == player->idle_frames)
-	// 	player->current_img = player->idle_img_1;
-	// else if (player->framecount == player->idle_frames * 2)
-	// 	player->current_img = player->idle_img_2;
-	// else if (player->framecount == player->idle_frames * 3)
-	// 	player->current_img = player->idle_img_3;
-	// else if (player->framecount == player->idle_frames * 4)
-	// 	player->current_img = player->idle_img_4;
-	// else if (player->framecount == player->idle_frames * 5)
-	// 	player->current_img = player->idle_img_5;
-	// else if (player->framecount == player->idle_frames * 6)
-	// 	player->current_img = player->idle_img_6;
-	// else if (player->framecount == player->idle_frames * 8)
-	// {
-	// 	player->current_img = player->idle_img_7;
-	// 	player->framecount = 0;
-	// }
-	// player->framecount += 1;
+	// static int frame_corrente=0;
+	// static double timer_frame = 0.0;
+	// static double then = 0;
+	// if(then == 0)
+	// 	then = get_time();
+	// double now = get_time();
+	// double dt = now - then;
+	// timer_frame += dt;
+	// if(timer_frame >= 0.05){
+	// 	timer_frame -= 0.05;
+	// 	player->current_img = player->frames[(frame_corrente + 1) % 8];
+	// 	frame_corrente++;
+	// }	
+	// then = now;
+
+	// if(player->direction == LEFT)
+	// 	player->current_img = player->left;
+	// if(player->direction == RIGHT)
+	// 	player->current_img = player->left;
+	if(player->direction == UP)
+		player->current_img = player->back;
+	if(player->direction == DOWN)
+		player->current_img = player->front;
 }
 
 static void	door_animation_closed(t_door *door_close_img)
@@ -120,8 +109,9 @@ static void	enemy_animation(t_enemy_img *img)
 	double dt = now - then;
 	timer_frame += dt;
 	if(timer_frame >= 0.2){
-		timer_frame -= 0.2;
-		
+		timer_frame -= 0.4;
+		img->basic_current = img->frames[(frame_corrente + 1) % 3];
+	    frame_corrente++;
 	}	
 	then = now;
 	// if (img->basic_framecount == img->basic_idle_frame)
@@ -156,7 +146,7 @@ int	update(t_game *game)
 		door_animation_closed(&game->door_close_img);
 	else
 		door_animation_opened(&game->door_open_img);
-	//player_animation(&game->player);
+	player_animation(&game->player);
 	enemy_animation(&game->enemy_imgs);
 	render(game);
 	draw_text(game);

@@ -80,12 +80,13 @@ void renderMinimap(t_game game){
 	for (int map_y = 0; map_y < MAP_HEIGHT; ++map_y) {
 		for (int map_x = 0; map_x < MAP_WIDTH; ++map_x) {
 			  switch (game.tilemap[map_y][map_x].type) {
+				case IND_WALL: 		tile_color = 0x000000FF;   break;
                 case WALL:          tile_color = 0xFF654321;   break;
                 case PLAYER:        tile_color = 0x0000FF00;   break;
 				case COLLECTABLE:	tile_color = 0xFFFFFF00;   break;
-				case EMPTY:			tile_color = 0xFF8B4513;   break;
-				case EXIT:			tile_color = 0xFF0000FF;   break;
-                default:            tile_color = 0x000000FF;  break;
+				//case EMPTY:			tile_color = 0xFF8B4513;   break;
+				case EXIT:			tile_color = 0xFF00FF00;   break;
+                default:            tile_color = 0xFF8B4513;  break;
             }
 			int start_screen_x = 600 + (map_x * 6);
             int start_screen_y = 508 + (map_y * 6);
@@ -131,7 +132,7 @@ void	render(t_game *game)
 			tile = game->tilemap[y][x];
 			game->tilemap[y][x].visited = 1;
 			tile.position.x = tile.position.x  = (x - camerax) * 64 + viewPortX;
-			tile.position.y = tile.position.y = (y - cameray) * 64;
+			tile.position.y = tile.position.y = (y - cameray) * 64 + 50;
 
 			draw_image(tile, *game, tile.position);
 			x++;

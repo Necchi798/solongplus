@@ -29,34 +29,16 @@ static void	open_enemy_imgs(t_game *game)
 static void	open_player_imgs(t_game *game)
 {
 
-	game->player.idle_img_0 = mlx_xpm_file_to_image(game->mlx,
-			"asset/Player/player.xpm", &game->img_size.x, &game->img_size.y);
-	game->player.idle_img_1 = mlx_xpm_file_to_image(game->mlx,
-			"asset/Player/1.xpm", &game->img_size.x, &game->img_size.y);
-	game->player.idle_img_2 = mlx_xpm_file_to_image(game->mlx,
-			"asset/Player/2.xpm", &game->img_size.x, &game->img_size.y);
-	game->player.idle_img_3 = mlx_xpm_file_to_image(game->mlx,
-			"asset/Player/3.xpm", &game->img_size.x, &game->img_size.y);
-	game->player.idle_img_4 = mlx_xpm_file_to_image(game->mlx,
-			"asset/Player/4.xpm", &game->img_size.x, &game->img_size.y);
-	game->player.idle_img_5 = mlx_xpm_file_to_image(game->mlx,
-			"asset/Player/5.xpm", &game->img_size.x, &game->img_size.y);
-	game->player.idle_img_6 = mlx_xpm_file_to_image(game->mlx,
-			"asset/Player/6.xpm", &game->img_size.x, &game->img_size.y);
-	game->player.idle_img_7 = mlx_xpm_file_to_image(game->mlx,
-			"asset/Player/7.xpm", &game->img_size.x, &game->img_size.y);
-
-	game->player.frames[0] = game->player.idle_img_0;
-	game->player.frames[1] = game->player.idle_img_1;
-	game->player.frames[2] = game->player.idle_img_2;
-	game->player.frames[3] = game->player.idle_img_3;
-	game->player.frames[4] = game->player.idle_img_4;
-	game->player.frames[5] = game->player.idle_img_5;
-	game->player.frames[6] = game->player.idle_img_6;
-	game->player.frames[7] = game->player.idle_img_7;
-	game->player.current_img = game->player.idle_img_0;
+	game->player.front = mlx_xpm_file_to_image(game->mlx,
+			"asset/Player/front.xpm", &game->img_size.x, &game->img_size.y);
+	game->player.back = mlx_xpm_file_to_image(game->mlx,
+			"asset/Player/back.xpm", &game->img_size.x, &game->img_size.y);
+	// game->player.left = mlx_xpm_file_to_image(game->mlx,
+	// 		"asset/Player/left.xpm", &game->img_size.x, &game->img_size.y);
+	// game->player.right = mlx_xpm_file_to_image(game->mlx,
+	// 		"asset/Player/right.xpm", &game->img_size.x, &game->img_size.y);
+	game->player.current_img = game->player.front;
 }
-
 void	open_wall_img(t_game *game)
 {
 	game->wall_imgs = mlx_xpm_file_to_image(game->mlx, "asset/Wall/wall.xpm",

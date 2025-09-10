@@ -70,14 +70,11 @@ typedef struct s_player
 	int		framecount;
 	int		idle_frames;
 	void	*frames[8];
-	void	*idle_img_0;
-	void	*idle_img_1;
-	void	*idle_img_2;
-	void	*idle_img_3;
-	void	*idle_img_4;
-	void	*idle_img_5;
-	void	*idle_img_6;
-	void	*idle_img_7;
+	void	*front;
+	void	*back;
+	void	*left;
+	void	*right;
+
 
 }	t_player;
 
