@@ -20,8 +20,13 @@
 
 # define IMG_SIZE 64
 # define CAMERA_SIZE 6
-# define MAP_HEIGHT 30
-# define MAP_WIDTH 30
+# define MAP_HEIGHT 6
+# define MAP_WIDTH 6
+
+# define ENEMY_NMB 8
+
+# define COLLECTS_NMB 7
+
 typedef enum e_direction{
 	
 	UP = 1,
@@ -81,6 +86,7 @@ typedef struct s_player
 typedef struct s_door
 {
 	t_tile	*tile;
+	void	*frames[8];
 	void	*current_img;
 	int		framecount;
 	int		idle_frames;
@@ -122,6 +128,7 @@ typedef struct s_enemy_imgs
 
 typedef struct s_game
 {
+	int 			points;
 	void			*chest;
 	void			*menuFrame;
 	void			*floor;

@@ -40,10 +40,10 @@ static void	player_animation(t_player *player)
 	// }	
 	// then = now;
 
-	// if(player->direction == LEFT)
-	// 	player->current_img = player->left;
-	// if(player->direction == RIGHT)
-	// 	player->current_img = player->left;
+	if(player->direction == LEFT)
+		player->current_img = player->left;
+	if(player->direction == RIGHT)
+		player->current_img = player->right;
 	if(player->direction == UP)
 		player->current_img = player->back;
 	if(player->direction == DOWN)
@@ -52,50 +52,58 @@ static void	player_animation(t_player *player)
 
 static void	door_animation_closed(t_door *door_close_img)
 {
-	if (door_close_img->framecount == 0)
-		door_close_img->current_img = door_close_img->idle_img_0;
-	else if (door_close_img->framecount == door_close_img->idle_frames)
-		door_close_img->current_img = door_close_img->idle_img_1;
-	else if (door_close_img->framecount == door_close_img->idle_frames * 2)
-		door_close_img->current_img = door_close_img->idle_img_0;
-	else if (door_close_img->framecount == door_close_img->idle_frames * 3)
-		door_close_img->current_img = door_close_img->idle_img_3;
-	else if (door_close_img->framecount == door_close_img->idle_frames * 4)
-		door_close_img->current_img = door_close_img->idle_img_4;
-	else if (door_close_img->framecount == door_close_img->idle_frames * 5)
-		door_close_img->current_img = door_close_img->idle_img_5;
-	else if (door_close_img->framecount == door_close_img->idle_frames * 6)
-		door_close_img->current_img = door_close_img->idle_img_6;
-	else if (door_close_img->framecount == door_close_img->idle_frames * 7)
-	{
-		door_close_img->current_img = door_close_img->idle_img_7;
-		door_close_img->framecount = 0;
-	}
-	door_close_img->framecount += 1;
+	// if (door_close_img->framecount == 0)
+	// 	door_close_img->current_img = door_close_img->idle_img_0;
+	// else if (door_close_img->framecount == door_close_img->idle_frames)
+	// 	door_close_img->current_img = door_close_img->idle_img_1;
+	// else if (door_close_img->framecount == door_close_img->idle_frames * 2)
+	// 	door_close_img->current_img = door_close_img->idle_img_0;
+	// else if (door_close_img->framecount == door_close_img->idle_frames * 3)
+	// 	door_close_img->current_img = door_close_img->idle_img_3;
+	// else if (door_close_img->framecount == door_close_img->idle_frames * 4)
+	// 	door_close_img->current_img = door_close_img->idle_img_4;
+	// else if (door_close_img->framecount == door_close_img->idle_frames * 5)
+	// 	door_close_img->current_img = door_close_img->idle_img_5;
+	// else if (door_close_img->framecount == door_close_img->idle_frames * 6)
+	// 	door_close_img->current_img = door_close_img->idle_img_6;
+	// else if (door_close_img->framecount == door_close_img->idle_frames * 7)
+	// {
+	// 	door_close_img->current_img = door_close_img->idle_img_7;
+	// 	door_close_img->framecount = 0;
+	// }
+	// door_close_img->framecount += 1;
+	static int frame_corrente=0;
+	static double timer_frame = 0.0;
+	static double then = 0;
+	if(then == 0)
+		then = get_time();
+	double now = get_time();
+	double dt = now - then;
+	timer_frame += dt;
+	if(timer_frame >= 0.05){
+		timer_frame -= 0.05;
+		door_close_img->current_img = door_close_img->frames[(frame_corrente + 1) % 8];
+	    frame_corrente++;
+	}	
+	then = now;
 }
 
 static void	door_animation_opened(t_door *door_open_img)
 {
-	if (door_open_img->framecount == 0)
-		door_open_img->current_img = door_open_img->idle_img_0;
-	else if (door_open_img->framecount == door_open_img->idle_frames)
-		door_open_img->current_img = door_open_img->idle_img_1;
-	else if (door_open_img->framecount == door_open_img->idle_frames * 2)
-		door_open_img->current_img = door_open_img->idle_img_2;
-	else if (door_open_img->framecount == door_open_img->idle_frames * 3)
-		door_open_img->current_img = door_open_img->idle_img_3;
-	else if (door_open_img->framecount == door_open_img->idle_frames * 4)
-		door_open_img->current_img = door_open_img->idle_img_4;
-	else if (door_open_img->framecount == door_open_img->idle_frames * 5)
-		door_open_img->current_img = door_open_img->idle_img_5;
-	else if (door_open_img->framecount == door_open_img->idle_frames * 6)
-		door_open_img->current_img = door_open_img->idle_img_6;
-	else if (door_open_img->framecount == door_open_img->idle_frames * 7)
-	{
-		door_open_img->current_img = door_open_img->idle_img_7;
-		door_open_img->framecount = 0;
-	}
-	door_open_img->framecount += 1;
+	static int frame_corrente=0;
+	static double timer_frame = 0.0;
+	static double then = 0;
+	if(then == 0)
+		then = get_time();
+	double now = get_time();
+	double dt = now - then;
+	timer_frame += dt;
+	if(timer_frame >= 0.05){
+		timer_frame -= 0.05;
+		door_open_img->current_img = door_open_img->frames[(frame_corrente + 1) % 8];
+	    frame_corrente++;
+	}	
+	then = now;
 }
 
 static void	enemy_animation(t_enemy_img *img)
@@ -150,7 +158,7 @@ int	update(t_game *game)
 	enemy_animation(&game->enemy_imgs);
 	render(game);
 	draw_text(game);
-	char *str = ft_itoa(game->collects);
+	char *str = ft_itoa(game->points);
 	mlx_string_put(game->mlx, game->window,
 		0,
 		IMG_SIZE - IMG_SIZE / 1.5,

@@ -126,7 +126,7 @@ char** genMap() {
                 map[x][y] = IND_WALL;
         }
     }
-	place_game_elements(9,15,map);
+	place_game_elements(COLLECTS_NMB,ENEMY_NMB,map);
     printf("Mappa generata!\n");
      for (int y = 0; y < MAP_HEIGHT; ++y) {
         for (int x = 0; x < MAP_WIDTH; ++x){
@@ -136,6 +136,7 @@ char** genMap() {
      }
     return map;
 }
+
 t_tile	**map_init( t_game *game)
 {
 	char	**map;
@@ -179,6 +180,7 @@ t_bool	start(t_game *game, int argc, char **argv)
 {
 	game->status = 0;
 	game->collects = 0;
+    game->points = 0;
 	game->moves = 0;
 	game->enemy_list = NULL;
 	game->tilemap = map_init( game);

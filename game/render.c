@@ -76,7 +76,8 @@ void renderMenu (t_game game){
 void renderMinimap(t_game game){
 	int scale = 5;
 	int tile_color;
-	// void *minimap = mlx_new_image(game.mlx,180,180 );
+	// void *minimap = mlx_new_image(game.mlx,159,150 );
+	// char *mlx_data_addr = mlx_get_data_addr();
 	for (int map_y = 0; map_y < MAP_HEIGHT; ++map_y) {
 		for (int map_x = 0; map_x < MAP_WIDTH; ++map_x) {
 			  switch (game.tilemap[map_y][map_x].type) {
@@ -84,7 +85,6 @@ void renderMinimap(t_game game){
                 case WALL:          tile_color = 0xFF654321;   break;
                 case PLAYER:        tile_color = 0x0000FF00;   break;
 				case COLLECTABLE:	tile_color = 0xFFFFFF00;   break;
-				//case EMPTY:			tile_color = 0xFF8B4513;   break;
 				case EXIT:			tile_color = 0xFF00FF00;   break;
                 default:            tile_color = 0xFF8B4513;  break;
             }
@@ -98,6 +98,7 @@ void renderMinimap(t_game game){
 			}}
 		}
 	}
+	//mlx_destroy_image(game.mlx,minimap);
 }
 
 
@@ -108,7 +109,7 @@ void	render(t_game *game)
 	int		y;
 
 	mlx_clear_window(game->mlx, game->window);
-	int cameraSize = 6;
+	int cameraSize = CAMERA_SIZE;
 	int camerax = game->player.tile->position.x/64 - cameraSize / 2;
 	int cameray = game->player.tile->position.y/64 - cameraSize / 2;
 	int maxCameraX = (( MAP_HEIGHT) - cameraSize);
@@ -144,6 +145,7 @@ void	render(t_game *game)
 	renderMinimap(*game);
 	if (game->status == 1){
 		printf("%d %d", game->status, game->collects);
+		game->points += 10;
 		game->status = 0;
 		game->tilemap = map_init(game);
 	}

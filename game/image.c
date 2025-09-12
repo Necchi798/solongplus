@@ -33,10 +33,10 @@ static void	open_player_imgs(t_game *game)
 			"asset/Player/front.xpm", &game->img_size.x, &game->img_size.y);
 	game->player.back = mlx_xpm_file_to_image(game->mlx,
 			"asset/Player/back.xpm", &game->img_size.x, &game->img_size.y);
-	// game->player.left = mlx_xpm_file_to_image(game->mlx,
-	// 		"asset/Player/left.xpm", &game->img_size.x, &game->img_size.y);
-	// game->player.right = mlx_xpm_file_to_image(game->mlx,
-	// 		"asset/Player/right.xpm", &game->img_size.x, &game->img_size.y);
+	game->player.left = mlx_xpm_file_to_image(game->mlx,
+			"asset/Player/left.xpm", &game->img_size.x, &game->img_size.y);
+	game->player.right = mlx_xpm_file_to_image(game->mlx,
+			"asset/Player/right.xpm", &game->img_size.x, &game->img_size.y);
 	game->player.current_img = game->player.front;
 }
 void	open_wall_img(t_game *game)

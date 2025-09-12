@@ -19,8 +19,10 @@ void	move_right(t_game *game)
 {
 	game->player.direction = RIGHT;
 
-	if (game->player.tile->right->type == COLLECTABLE)
+	if (game->player.tile->right->type == COLLECTABLE){
+		game->points++;
 		game->collects--;
+	}
 	if (game->player.tile->right->type == EXIT && game->collects == 0)
 		game->status = 1;
 	if (game->player.tile->right->type == ENEMY)
@@ -44,8 +46,11 @@ void	move_left(t_game *game)
 {
 	game->player.direction = LEFT;
 
-	if (game->player.tile->left->type == COLLECTABLE)
+	if (game->player.tile->left->type == COLLECTABLE){
 		game->collects--;
+		game->points++;
+
+	}
 	else if (game->player.tile->left->type == EXIT && game->collects == 0)
 		game->status = 1;
 	else if (game->player.tile->left->type == ENEMY)
@@ -68,8 +73,11 @@ void	move_left(t_game *game)
 void	move_up(t_game *game)
 {	
 	game->player.direction = UP;
-	if (game->player.tile->up->type == COLLECTABLE)
+	if (game->player.tile->up->type == COLLECTABLE){
 		game->collects--;
+		game->points++;
+
+	}
 	if (game->player.tile->up->type == EXIT && game->collects == 0)
 		game->status = 1;
 	if (game->player.tile->up->type == ENEMY)
@@ -92,8 +100,11 @@ void	move_up(t_game *game)
 void	move_down(t_game *game)
 {
 	game->player.direction = DOWN;
-	if (game->player.tile->down->type == COLLECTABLE)
+	if (game->player.tile->down->type == COLLECTABLE){
 		game->collects--;
+		game->points++;
+
+	}
 	if (game->player.tile->down->type == EXIT && game->collects == 0)
 		game->status = 1;
 	if (game->player.tile->down->type == ENEMY)
@@ -146,7 +157,7 @@ int	input(int key, t_game *game)
 		move_up(game);
 	else if (key == 115 && game->status == 0)
 		move_down(game);
-	else if (key == 53)
+	else if (key == 65307 )
 		end_program(game);
 	return (0);
 }
